@@ -27,7 +27,6 @@ export class LocationService {
     });
   }
   newLocation(lat?: number, lng?: number) {
-    console.log('newLocation');
     const location: Location = {
       id: uuid(),
       name: '',
