@@ -1,0 +1,37 @@
+@import "../../../variables.scss";
+.app-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: $s5;
+  &--open {
+    display: flex;
+  }
+  &__overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $black;
+    opacity: 0.7;
+    z-index: 1;
+  }
+  &__body {
+    background-color: $white;
+    z-index: 2;
+    display: flex;
+    overflow: hidden;
+    max-height: 100%;
+    border-radius: $r3;
+    &__content {
+      overflow: auto;
+    }
+  }
+}

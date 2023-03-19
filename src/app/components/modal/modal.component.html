@@ -1,0 +1,13 @@
+<div
+  class="app-modal"
+  [ngClass]="{
+    'app-modal--open': (isOpen$ | async)
+  }"
+>
+  <div class="app-modal__overlay" (click)="closeModal()"></div>
+  <div class="app-modal__body">
+    <div class="app-modal__body__content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

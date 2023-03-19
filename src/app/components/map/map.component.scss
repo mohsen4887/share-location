@@ -1,0 +1,16 @@
+@import "../../../variables.scss";
+.app-map {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  &__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: $s3;
+    z-index: 401;
+  }
+}
+[leaflet] {
+  height: 100%;
+}

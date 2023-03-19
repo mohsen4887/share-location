@@ -1,0 +1,11 @@
+<div class="app-map">
+  <div class="app-map__actions">
+    <button class="btn btn-primary" (click)="addLocation()">
+      Add Location
+    </button>
+  </div>
+  <div leaflet [layers]="layers" (mapClick)="onMapClick($event)"></div>
+  <app-modal>
+    <app-form></app-form>
+  </app-modal>
+</div>

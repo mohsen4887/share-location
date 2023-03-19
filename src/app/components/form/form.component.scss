@@ -1,0 +1,55 @@
+@import "../../../variables.scss";
+
+.app-form {
+  background-color: $white;
+  min-width: 500px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 100%;
+  > form {
+    flex: 1;
+  }
+  &__header {
+    padding: $s3;
+    border-bottom: 1px solid $light;
+  }
+  &__form {
+    padding: $s3;
+    flex: 1;
+    overflow: auto;
+  }
+  &__footer {
+    padding: $s3;
+    border-top: 1px solid $light;
+  }
+  &__map {
+    height: 300px;
+    width: 100%;
+    position: relative;
+    &__layer {
+      height: 100%;
+    }
+  }
+  &__image-container {
+    display: inline-block;
+    position: relative;
+    button {
+      position: absolute;
+      inset-inline-end: 0;
+      top: 0;
+      transform: translate(20%, -20%);
+      background: $danger;
+      border: none;
+      color: $white;
+      border-radius: 100px;
+      display: flex;
+      width: 20px;
+      height: 20px;
+      align-items: center;
+      cursor: pointer;
+      justify-content: center;
+    }
+  }
+}

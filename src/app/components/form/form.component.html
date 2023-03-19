@@ -1,0 +1,111 @@
+<div class="app-form">
+  <div class="app-form__header">
+    <h2 class="m-0">Share Location</h2>
+  </div>
+  <div class="app-form__form">
+    <form
+      *ngIf="location"
+      id="locationForm"
+      #locationForm="ngForm"
+      (ngSubmit)="locationForm.valid && handleSubmit()"
+    >
+      <div class="form-group">
+        <label class="required" for="name">Name :</label>
+        <input
+          required
+          id="name"
+          #name="ngModel"
+          [(ngModel)]="location.name"
+          name="name"
+        />
+        <span
+          *ngIf="locationForm.submitted && name.errors"
+          class="validation-error"
+          >Location name is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="description">Description :</label>
+        <textarea
+          rows="5"
+          id="description"
+          #description="ngModel"
+          [(ngModel)]="location.description"
+          name="description"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label class="required" for="type">Location on map :</label>
+        <div class="app-form__map">
+          <div
+            class="app-form__map__layer"
+            leaflet
+            [center]="center"
+            (mapClick)="setLocation($event)"
+            (markerDragEnd)="updateLocation($event)"
+            [layers]="markers"
+          ></div>
+        </div>
+        <input
+          type="hidden"
+          required
+          id="lat"
+          #lat="ngModel"
+          [(ngModel)]="location.lat"
+          name="lat"
+        />
+        <input
+          type="hidden"
+          required
+          id="lng"
+          #lng="ngModel"
+          [(ngModel)]="location.lng"
+          name="lng"
+        />
+        <span
+          *ngIf="locationForm.submitted && (lat.errors || lng.errors)"
+          class="validation-error"
+          >Select location on map</span
+        >
+      </div>
+      <div class="form-group">
+        <label class="required" for="type">Location type :</label>
+        <select
+          id="type"
+          #type="ngModel"
+          required=""
+          name="type"
+          [(ngModel)]="location.type"
+        >
+          <option *ngFor="let type of locationTypes">{{ type }}</option>
+        </select>
+        <span
+          *ngIf="locationForm.submitted && type.errors"
+          class="validation-error"
+          >Location type is required</span
+        >
+      </div>
+      <div class="form-group">
+        <label for="logo">Logo :</label>
+        <input
+          id="logo"
+          #logoFile
+          type="file"
+          accept="image/*"
+          (change)="logoChange($event)"
+        />
+        <span class="validation-error">{{ imageError }}</span>
+      </div>
+      <div *ngIf="location.logo" class="app-form__image-container">
+        <img [src]="location.logo" />
+        <button type="button" (click)="removeImage()">x</button>
+      </div>
+    </form>
+  </div>
+  <div class="app-form__footer">
+    <button class="btn btn-primary me-2" type="submit" form="locationForm">
+      Save
+    </button>
+    <button class="btn" type="button" (click)="closeModal()">Cancel</button>
+  </div>
+</div>
