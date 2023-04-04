@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ModalComponent {
   isOpen$: Observable<boolean>;
   constructor(private modalService: ModalService) {
-    this.isOpen$ = this.modalService.isOpen$;
+    this.isOpen$ = this.modalService.isOpen;
   }
 
   closeModal() {

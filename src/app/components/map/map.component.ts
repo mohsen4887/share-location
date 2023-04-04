@@ -15,7 +15,7 @@ export class MapComponent implements OnDestroy {
   layers: Layer[] = [];
   subs: Subscription[] = [];
   constructor(private locationService: LocationService) {
-    const sub = this.locationService.locations$.subscribe((locations) => {
+    const sub = this.locationService.locations.subscribe((locations) => {
       this.locations = locations;
       this.layers = this.locations.map((l) => {
         return marker(latLng(l.lat!, l.lng!), false, l);

@@ -33,7 +33,7 @@ export class FormComponent implements OnDestroy {
     private modalService: ModalService
   ) {
     this.subs.push(
-      this.locationService.location$.subscribe((location) => {
+      this.locationService.selectedLocation.subscribe((location) => {
         this.location = { ...location };
         const hasLocation = location.lat && location.lng;
         this.markers = hasLocation

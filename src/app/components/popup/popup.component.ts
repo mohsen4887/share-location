@@ -10,11 +10,9 @@ import { LocationService } from 'src/app/services/location/location.service';
 export class PopupComponent implements OnInit {
   @Input() locationid = '';
   location!: Location;
-  private _locations: Location[] = [];
   constructor(private locationService: LocationService) {}
   ngOnInit(): void {
-    this.locationService.locations$.subscribe((locations) => {
-      this._locations = locations;
+    this.locationService.locations.subscribe((locations) => {
       const location = locations.find((l) => l.id === this.locationid);
       if (location) {
         this.location = location;

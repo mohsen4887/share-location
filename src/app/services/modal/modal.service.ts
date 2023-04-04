@@ -5,14 +5,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ModalService {
-  private isOpen = new BehaviorSubject<boolean>(false);
-  isOpen$ = this.isOpen.asObservable();
+  private _isOpen = new BehaviorSubject<boolean>(false);
+  public get isOpen() {
+    return this._isOpen.asObservable();
+  }
   constructor() {}
 
   open() {
-    this.isOpen.next(true);
+    this._isOpen.next(true);
   }
   close() {
-    this.isOpen.next(false);
+    this._isOpen.next(false);
   }
 }

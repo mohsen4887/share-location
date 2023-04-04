@@ -15,10 +15,4 @@ export enum LocationType {
   GYM = 'Gym',
   PARK = 'Park',
 }
-export const locationTypes = [
-  LocationType.BANK,
-  LocationType.BAR,
-  LocationType.BUSINESS,
-  LocationType.GYM,
-  LocationType.PARK,
-];
+export const locationTypes = Object.values(LocationType);

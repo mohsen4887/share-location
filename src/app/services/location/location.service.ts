@@ -11,20 +11,25 @@ import { DragEndEvent, Marker } from 'leaflet';
 })
 export class LocationService {
   private STORAGE_KEY = '_locations';
-  private location = new Subject<Location>();
-  private _locations: Location[] = [];
-  private locations = new BehaviorSubject<Location[]>([]);
-  location$ = this.location.asObservable();
-  locations$ = this.locations.asObservable();
+  private _data: Location[] = [];
+
+  private _selectedLocation = new Subject<Location>();
+  private _locations = new BehaviorSubject<Location[]>([]);
+
+  public get selectedLocation() {
+    return this._selectedLocation.asObservable();
+  }
+
+  public get locations() {
+    return this._locations.asObservable();
+  }
+
   constructor(private modalService: ModalService) {
     const data = localStorage.getItem(this.STORAGE_KEY);
     if (data) {
-      this.locations.next(JSON.parse(data));
+      this._data = JSON.parse(data);
+      this._locations.next(this._data);
     }
-    this.locations$.subscribe((locations) => {
-      this._locations = locations;
-      this.save();
-    });
   }
   newLocation(lat?: number, lng?: number) {
     const location: Location = {
@@ -37,35 +42,37 @@ export class LocationService {
       logo: null,
     };
     this.modalService.open();
-    this.location.next(location);
+    this._selectedLocation.next(location);
   }
   editLocation(location: Location) {
     this.modalService.open();
-    this.location.next(location);
+    this._selectedLocation.next(location);
   }
   removeLocation(location: Location) {
-    const index = this._locations.findIndex((l) => l.id === location.id);
+    const index = this._data.findIndex((l) => l.id === location.id);
     if (index !== -1) {
-      this._locations.splice(index, 1);
-      this.locations.next(this._locations);
+      this._data.splice(index, 1);
+      this.save();
+      this._locations.next(this._data);
     }
   }
 
   saveLocation(location: Location) {
-    const index = this._locations.findIndex((l) => l.id === location.id);
+    const index = this._data.findIndex((l) => l.id === location.id);
     if (index !== -1) {
-      this._locations[index] = location;
+      this._data[index] = location;
     } else {
-      this._locations.push(location);
+      this._data.push(location);
     }
-    this.locations.next(this._locations);
+    this.save();
+    this._locations.next(this._data);
   }
 
   getLocation(id: string) {
-    return this._locations.find((l) => l.id === id);
+    return this._data.find((l) => l.id === id);
   }
 
   private save(): void {
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this._locations));
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this._data));
   }
 }
