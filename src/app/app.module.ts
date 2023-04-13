@@ -11,6 +11,7 @@ import { PopupComponent } from './components/popup/popup.component';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
 
+//comment
 @NgModule({
   declarations: [
     AppComponent,
